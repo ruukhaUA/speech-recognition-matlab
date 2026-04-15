@@ -1,0 +1,1 @@
+the discrete fourier transform of a real-valued signal is conjugate symmetric
