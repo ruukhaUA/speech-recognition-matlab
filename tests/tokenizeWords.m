@@ -1,16 +1,20 @@
-function tokens = tokenizeWords(sentence)
-% TOKENIZEWORDS Divide una frase en palabras en minúsculas.
-%   TOKENS = TOKENIZEWORDS(SENTENCE) devuelve un array con las palabras
-%   extraídas de SENTENCE. La función convierte el texto a minúsculas,
-%   elimina espacios en blanco al inicio y al final, y separa la frase por
-%   espacios para producir tokens simples, adecuados para tareas de
-%   procesamiento de lenguaje.
-%
-%   Ejemplo:
-%       tokenizeWords("  Hola Mundo  ")
-%       % devuelve {'hola', 'mundo'}
+function tokens = tokenize(sentence, mode)
+% TOKENIZE Tokeniza una frase en palabras o caracteres.
+%   TOKENS = TOKENIZE(SENTENCE, MODE) devuelve un cell array de tokens.
+%   MODE puede ser:
+%       'word'  – tokenización por palabras
+%       'char'  – tokenización por caracteres
 
-    normalizedSentence = lower(strtrim(sentence));
-    tokens = strsplit(normalizedSentence);
+    normalized = lower(strtrim(sentence));
 
+    switch mode
+        case 'word'
+            tokens = strsplit(normalized);
+
+        case 'char'
+            tokens = cellstr(regexp(normalized, '.', 'match'));
+
+        otherwise
+            error("Modo de tokenización no reconocido: %s", mode);
+    end
 end
