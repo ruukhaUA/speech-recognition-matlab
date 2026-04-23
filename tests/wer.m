@@ -1,11 +1,11 @@
-function werValue = wer(ref, hyp)
+function wer = wer(ref, hyp, mode)
     % Split into word tokens
-    r = tokenizeWords(ref);
-    h = tokenizeWords(hyp);
+    r = tokenizeWords(ref, mode);
+    h = tokenizeWords(hyp, mode);
 
     editDist = levenshteinDistance(r, h);
 
     % WER = edit distance / number of reference words
-    werValue = dp(R+1, H+1) / R;
+    wer = editDist / numel(r);
 end
 
