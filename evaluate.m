@@ -12,12 +12,14 @@ audioFiles = {
     "audio/ai.wav"
     "audio/dft.mp3"
     "audio/test.wav"
+    "audio/threesome.mp3"
 };
 
 transcriptFiles = {
     "transcripts/ai.wav_transcript.txt"
     "transcripts/dft.mp3_transcript.txt"
     "transcripts/test.wav_transcript.txt"
+    "transcripts/threesome_transcript.txt"
 };
 
 language = "en-US";   % or "es-ES", etc.
