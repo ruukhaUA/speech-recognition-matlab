@@ -8,16 +8,14 @@ function texto = transcribirAudio(rutaAudio, idioma)
     sound(audio, fs);
     pause(length(audio)/fs + 0.5)
 
-    cliente = speechClient("wav2vec2.0");
+    % cliente = speechClient("whisper");
     % cliente.Language = idioma;
 
-    texto = speech2text(audio, fs, Client=cliente);
-    % If wav2vec2.0 returns a table, convert it to a single string
+    texto = speech2text(audio, fs, Language=idioma);
+    
     if istable(texto)
         texto = strjoin(texto.Transcript, " ");
     end
-
-
 
     disp("Transcripción:")
     disp(texto)
