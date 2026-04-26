@@ -1,4 +1,4 @@
-function evaluate(mode)
+function evaluate(~)
 % evaluate.m
 % Automatically sweep audio/ and transcripts/ folders
 % and compute WER for each matching pair.
@@ -10,9 +10,9 @@ function evaluate(mode)
 
     clc;
 
-    if nargin < 1
-    error("You must specify mode: 'word' or 'char'")
-    end
+    %if nargin < 1
+    %error("You must specify mode: 'word' or 'char'")
+    %end
 
     audioDir = "audio/";
     transcriptDir = "transcripts/";
