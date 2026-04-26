@@ -1,6 +1,12 @@
 % evaluate.m
 % Automatically sweep audio/ and transcripts/ folders
 % and compute WER for each matching pair.
+%
+% 1.Looks for all valid audio files at "audio/".
+% 2.For each audio file, looks for its transcripts.
+% 3.It's expected that all transcripts are named like
+% "<audio_filename_including_extension>_transcript.txt"
+%
 
 clear; clc;
 
