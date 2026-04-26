@@ -79,13 +79,13 @@ function evaluate(mode)
     % ---------------------------------------------------------
     % 3. Global statistics
     % ---------------------------------------------------------
-    validWERChar = werValuesChar(~isnan(werValuesChar));
+    validWERChar = werValues(~isnan(werValuesChar));
     meanWERChar = mean(validWERChar);
-    validWERWord = werValuesWord(~isnan(werValuesWord));
+    validWERWord = werValues(~isnan(werValuesWord));
     meanWERWord = mean(validWERWord);
 
     fprintf("\n=====================================\n");
     fprintf("   Evaluation complete\n");
-    fprintf("   Average WER across all files (char): %.3f\n", meanWERChar);
-    fprintf("   Average WER across all files (word): %.3f\n", meanWERWord);
+    fprintf("   Average WER across all files (char): %.3f\n", meanWER);
+    fprintf()
     fprintf("=====================================\n");
