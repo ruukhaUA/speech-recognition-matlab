@@ -1,4 +1,4 @@
-function evaluate(~)
+function evaluate(maxAudios)
 % evaluate.m
 % Automatically sweep audio/ and transcripts/ folders
 % and compute WER for each matching pair.
@@ -9,6 +9,10 @@ function evaluate(~)
 % "<audio_filename_including_extension>_transcript.txt"
 
     clc;
+
+    if nargin < 1
+        maxAudios = 10000
+    end
 
     %if nargin < 1
     %error("You must specify mode: 'word' or 'char'")
@@ -34,8 +38,10 @@ function evaluate(~)
         end
     end
 
-    numFiles = numel(audioFiles);
-    werValues = zeros(numFiles,1);
+    % Apply maxAudios limit
+    numFiles = min(numel(audioFiles), maxAudios);
+    werValuesChar = nan(numFiles,1);
+    werValuesWord = nan(numFiles,1);
 
     % ---------------------------------------------------------
     % 2. Loop over all audio files

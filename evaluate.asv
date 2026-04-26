@@ -1,4 +1,4 @@
-function evaluate(mode)
+function evaluate(~, maxAudios)
 % evaluate.m
 % Automatically sweep audio/ and transcripts/ folders
 % and compute WER for each matching pair.
@@ -10,9 +10,11 @@ function evaluate(mode)
 
     clc;
 
-    if nargin < 1
-    error("You must specify mode: 'word' or 'char'")
-    end
+    if is
+
+    %if nargin < 1
+    %error("You must specify mode: 'word' or 'char'")
+    %end
 
     audioDir = "audio/";
     transcriptDir = "transcripts/";
@@ -79,13 +81,13 @@ function evaluate(mode)
     % ---------------------------------------------------------
     % 3. Global statistics
     % ---------------------------------------------------------
-    validWERChar = werValues(~isnan(werValuesChar));
+    validWERChar = werValuesChar(~isnan(werValuesChar));
     meanWERChar = mean(validWERChar);
-    validWERWord = werValues(~isnan(werValuesWord));
+    validWERWord = werValuesWord(~isnan(werValuesWord));
     meanWERWord = mean(validWERWord);
 
     fprintf("\n=====================================\n");
     fprintf("   Evaluation complete\n");
-    fprintf("   Average WER across all files (char): %.3f\n", meanWER);
-    fprintf()
+    fprintf("   Average WER across all files (char): %.3f\n", meanWERChar);
+    fprintf("   Average WER across all files (word): %.3f\n", meanWERWord);
     fprintf("=====================================\n");
