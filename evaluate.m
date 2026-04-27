@@ -1,13 +1,32 @@
 function evaluate(maxAudios)
-% evaluate.m
-% Automatically sweep audio/ and transcripts/ folders
-% and compute WER for each matching pair.
+% EVALUATE  Evalúa la precisión del modelo de transcripción sobre un conjunto de audios.
 %
-% 1.Looks for all valid audio files at "audio/".
-% 2.For each audio file, looks for its transcripts.
-% 3.It's expected that all transcripts are named like
-% "<audio_filename_including_extension>_transcript.txt"
+%   EVALUATE(MAXAUDIOS) procesa hasta MAXAUDIOS ficheros de audio ubicados en la
+%   carpeta `audio/`. Para cada audio, busca su transcripción de referencia en
+%   `transcripts/`, siguiendo la nomenclatura:
+%
+%       "<nombre_del_audio><extensión>_transcript.txt"
+%
+%   Por cada par audio–transcripción:
+%       • Ejecuta la función TRANSCIBIRAUDIO para obtener la predicción del modelo.
+%       • Calcula el WER (Word Error Rate) a nivel palabra y a nivel carácter,
+%         usando la función WER proporcionada por el usuario.
+%       • Muestra por pantalla el resultado individual.
+%
+%   Al finalizar, informa del WER medio (palabra y carácter) considerando solo los
+%   ficheros con transcripción válida.
+%
+%   Si MAXAUDIOS no se especifica, se procesan como máximo 10 000 audios.
+%
+%   La función asume la siguiente estructura de directorios:
+%       audio/        — ficheros de audio (.wav, .mp3, .flac, .m4a)
+%       transcripts/  — transcripciones de referencia en texto plano
+%
+%   Ejemplo:
+%       evaluate(100)
+%
 
+    addpath("utils"); savepath;
     clc;
 
     if nargin < 1
