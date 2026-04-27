@@ -26,16 +26,12 @@ function evaluate(maxAudios)
 %       evaluate(100)
 %
 
-    addpath("utils"); savepath;
+    addpath("utils"); savepath; % necesario para que encuentre las funciones auxiliares en `utils/`
     clc;
 
     if nargin < 1
         maxAudios = 10000
     end
-
-    %if nargin < 1
-    %error("You must specify mode: 'word' or 'char'")
-    %end
 
     audioDir = "audio/";
     transcriptDir = "transcripts/";
