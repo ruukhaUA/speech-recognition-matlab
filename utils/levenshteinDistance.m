@@ -15,21 +15,25 @@ function dist = levenshteinDistance(refTokens, hypTokens)
 %       d = levenshteinDistance(ref, hyp)
 %       % devuelve 1 (una inserción)
 
-    R = numel(refTokens);
-    H = numel(hypTokens);
+    nReferencia = numel(refTokens);
+    nHipotesis = numel(hypTokens);
 
-    dp = initializeDP(R, H);
+    dp = initializeDP(nReferencia, nHipotesis);
 
-    for i = 2:R+1
-        for j = 2:H+1
-            cost = ~strcmp(refTokens{i-1}, hypTokens{j-1});
+    for i = 2:nReferencia+1
+        for j = 2:nHipotesis+1
+            
+            costeSustitucion = ~strcmp(refTokens{i-1}, hypTokens{j-1}); % 1 ó 0
+            
             dp(i,j) = min([
-                dp(i-1,j) + 1,      % deletion
-                dp(i,j-1) + 1,      % insertion
-                dp(i-1,j-1) + cost  % substitution
+
+                dp(i-1,j) + 1,      % coste tras eliminar un 'token'
+                dp(i,j-1) + 1,      % coste tras añadir un 'token'
+                dp(i-1,j-1) + costeSustitucion
+
             ]);
         end
     end
 
-    dist = dp(R+1, H+1);
+    dist = dp(nReferencia+1, nHipotesis+1);
 end
