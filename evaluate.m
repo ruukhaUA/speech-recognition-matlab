@@ -29,29 +29,15 @@ function evaluate(maxAudios)
     addpath("utils"); savepath; % necesario para que encuentre las funciones auxiliares en `utils/`
     clc;
 
-    if nargin < 1
-        maxAudios = 10000
+    if nargin < 1 % comprueba si se ha pasado MAXAUDIOS
+        maxAudios = 10000;
     end
 
     audioDir = "audio/";
     transcriptDir = "transcripts/";
-
     language = "en";
 
-    % ---------------------------------------------------------
-    % 1. Find all audio files in audio/
-    % ---------------------------------------------------------
-    audioFilesStruct = dir(fullfile(audioDir, "*.*"));
-    validExt = {".wav", ".mp3", ".flac", ".m4a"};   % extend if needed
-
-    audioFiles = {};
-
-    for k = 1:numel(audioFilesStruct)
-        [~, ~, ext] = fileparts(audioFilesStruct(k).name);
-        if ismember(lower(string(ext)), string(validExt))
-            audioFiles{end+1} = fullfile(audioDir, audioFilesStruct(k).name);
-        end
-    end
+    audioFiles = findAudioFiles("audio/");
 
     % Apply maxAudios limit
     numFiles = min(numel(audioFiles), maxAudios);
