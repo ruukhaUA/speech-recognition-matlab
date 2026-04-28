@@ -39,39 +39,39 @@ function evaluate(maxAudios)
 
     audioFiles = findAudioFiles("audio/");
 
-    % Apply maxAudios limit
+    % Aplicamos límite máximo audios
     numFiles = min(numel(audioFiles), maxAudios);
+
+    % Preasignamos memoria para guardar resultados WER
     werValuesChar = nan(numFiles,1);
     werValuesWord = nan(numFiles,1);
 
-    % ---------------------------------------------------------
-    % 2. Loop over all audio files
-    % ---------------------------------------------------------
+
     for i = 1:numFiles
         audioPath = audioFiles{i};
         [~, base, ext] = fileparts(audioPath);
 
-        % Build expected transcript filename
+        % Creamos path esperado transcripción
         transcriptPath = fullfile(transcriptDir, base + ext + "_transcript.txt");
 
         fprintf("\n==============================\n");
         fprintf("File %d/%d: %s\n", i, numFiles, audioPath);
         fprintf("==============================\n");
 
-        % Check transcript exists
+        % Comprobamos si existe el fichero de transcripción
         if ~isfile(transcriptPath)
             fprintf("❌ Transcript not found: %s\n", transcriptPath);
             werValues(i) = NaN;
             continue
         end
 
-        % Load expected transcript
+        % Cargamos el fichero de transcripción
         expected = strtrim(fileread(transcriptPath));
 
-        % Run transcription
+        % Obtenemos la transcripción del modelo
         predicted = transcribirAudio(audioPath, language);
 
-        % Compute WER
+        % Obtenemos el WER para ambas granularidades
         wChar = wer(expected, predicted, "char");
         wWord = wer(expected, predicted, "word");
         werValuesChar(i) = wChar;
@@ -84,11 +84,14 @@ function evaluate(maxAudios)
     end
 
     % ---------------------------------------------------------
-    % 3. Global statistics
+    % Calculamos estadísticas globales
     % ---------------------------------------------------------
+
+    % Filtramos sólo los valores de aquellos ficheros de audio que tenían transcripción válida
     validWERChar = werValuesChar(~isnan(werValuesChar));
-    meanWERChar = mean(validWERChar);
     validWERWord = werValuesWord(~isnan(werValuesWord));
+    
+    meanWERChar = mean(validWERChar);
     meanWERWord = mean(validWERWord);
 
     fprintf("\n=====================================\n");
