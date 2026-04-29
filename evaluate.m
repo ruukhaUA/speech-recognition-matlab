@@ -1,4 +1,4 @@
-function [werValuesChar, werValuesWord] = evaluate(maxAudios)
+function [werValuesWord, werValuesChar] = evaluate(maxAudios)
 % EVALUATE  Evalúa la precisión del modelo de transcripción sobre un conjunto de audios.
 %
 %   EVALUATE(MAXAUDIOS) procesa hasta MAXAUDIOS ficheros de audio ubicados en la
