@@ -13,11 +13,8 @@ function [werValuesChar, werValuesWord] = evaluate(maxAudios)
 %         usando la función WER proporcionada por el usuario.
 %       • Muestra por pantalla el resultado individual.
 %
-%   Al finalizar, informa del WER medio (caracter y palabra) considerando solo los
+%   Al finalizar, informa del WER medio (palabra y carácter) considerando solo los
 %   ficheros con transcripción válida.
-%
-%   DEVUELVE dos vectores con los WER para ambas granularidades (caracter y
-%   palabra).
 %
 %   Si MAXAUDIOS no se especifica, se procesan como máximo 10 000 audios.
 %
@@ -26,7 +23,7 @@ function [werValuesChar, werValuesWord] = evaluate(maxAudios)
 %       transcripts/  — transcripciones de referencia en texto plano
 %
 %   Ejemplo:
-%       [werValuesChar, werValuesWord] = evaluate(100)
+%       evaluate(100)
 %
 
     addpath("utils"); savepath; % necesario para que encuentre las funciones auxiliares en `utils/`
@@ -40,7 +37,7 @@ function [werValuesChar, werValuesWord] = evaluate(maxAudios)
     transcriptDir = "transcripts/";
     language = "en";
 
-    audioFiles = findAudioFiles(audioDir);
+    audioFiles = findAudioFiles("audio/");
 
     % Aplicamos límite máximo audios
     numFiles = min(numel(audioFiles), maxAudios);
@@ -102,5 +99,3 @@ function [werValuesChar, werValuesWord] = evaluate(maxAudios)
     fprintf("   Average WER across all files (char): %.3f\n", meanWERChar);
     fprintf("   Average WER across all files (word): %.3f\n", meanWERWord);
     fprintf("=====================================\n");
-
-    return
