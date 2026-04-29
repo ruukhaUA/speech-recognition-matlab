@@ -63,7 +63,7 @@ function plotResults(werValuesWord, werValuesChar)
 
     figure
     set(gcf, 'Color', 'w')
-    boxplot([werValuesWord, werValuesChar], ...
+    boxplot([werValuesWord(:), werValuesChar(:)], ...
         'Labels', {'Palabra','Caracter'})
     title('Distribución del error')
     ylabel('WER')
